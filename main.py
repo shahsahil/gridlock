@@ -55,14 +55,18 @@ def logic(start,end,times,checks):
 	js = json.loads(response.text)
 	# print(js)
 	total_dur=0
-	# f=open("file.txt",'w+')
-	# js=json.loads(f.read())
+	f=open("file.txt", 'r+').read()
+	count_data=json.loads(f)
 	j=0
+	waypoints= waypoint_str.split('|')
+	wayp={}
 	for i in js['routes'][0]['legs']:
-		print(j)
+		if(j<len(waypoints)):
+			wayp[waypoints[j]] = total_dur
 		j=j+1
 		total_dur+=i['duration']['value']
 		print(total_dur)
+	
 	print(len(js['routes'][0]['legs']))
 	# duration=js['rows'][0]['elements'][0]['duration']['value']
 	duration=total_dur
@@ -72,7 +76,111 @@ def logic(start,end,times,checks):
 	t = int(t[0])*60*60+int(t[1])*60 - int(duration)
 	h = int(t%86400/3600)
 	m = int( t%3600 /60)
-	return str(str(h)+":"+str(m));
+	start_time = str(str(h)+":"+str(m));
+	for i in wayp:
+		#time at waypoint 
+		tw = t+wayp[i]
+		cap=5
+		if(m>0 and m<=5):
+			if(count_data[i][str(h)+":00-"+str(h)+":05"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":00-"+str(h)+":05"]+=1
+		elif(m>5 and m<=10):
+			if(count_data[i][str(h)+":05-"+str(h)+":10"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":05-"+str(h)+":10"]+=1
+		elif(m>10 and m<=15):
+			if(count_data[i][str(h)+":10-"+str(h)+":15"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":10-"+str(h)+":15"]+=1
+		elif(m>15 and m<=20):
+			if(count_data[i][str(h)+":15-"+str(h)+":20"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":15-"+str(h)+":20"]+=1
+		elif(m>20 and m<=25):
+			if(count_data[i][str(h)+":20-"+str(h)+":25"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":20-"+str(h)+":25"]+=1
+		elif(m>25 and m<=30):
+			if(count_data[i][str(h)+":25-"+str(h)+":30"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":25-"+str(h)+":30"]+=1
+		elif(m>30 and m<=35):
+			if(count_data[i][str(h)+":30-"+str(h)+":35"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":30-"+str(h)+":35"]+=1
+		elif(m>35 and m<=40):
+			if(count_data[i][str(h)+":35-"+str(h)+":40"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":35-"+str(h)+":40"]+=1
+		elif(m>40 and m<=45):
+			if(count_data[i][str(h)+":40-"+str(h)+":45"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":40-"+str(h)+":45"]+=1
+		elif(m>45 and m<=50):
+			if(count_data[i][str(h)+":45-"+str(h)+":50"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":45-"+str(h)+":50"]+=1
+		elif(m>50 and m<=55):
+			if(count_data[i][str(h)+":50-"+str(h)+":55"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":50-"+str(h)+":55"]+=1
+		elif(m>55 and m<=60):
+			if(count_data[i][str(h)+":55-"+str(h+1)+":00"]>cap):
+				m=m-5
+				if(m<0):
+					h-=1
+					m=60+m
+			else:
+				count_data[i][str(h)+":55-"+str(h+1)+":00"]+=1
+	f=open("file.txt", 'w')
+	start_time = str(str(h)+":"+str(m));
+	f.write(json.dumps(count_data))
+	return start_time;
 
 
 HOST = environ.get('SERVER_HOST', 'localhost')
