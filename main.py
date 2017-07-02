@@ -4,8 +4,7 @@ from os import environ
 import json
 import requests
 from datetime import datetime, date, time, timedelta
-API_KEY = 'AIzaSyDGHK2Revq2_iocE6G4iKDtkoqltMTbuIg'
-
+API_KEY = 'AIzaSyBRxaYSL5HeGOg74xgDbJ6jjbIO0RX64c0'
 
 app = Flask(__name__)
 
@@ -36,7 +35,6 @@ def logic(start,end,times,checks):
 	dt = datetime.combine(d,t)
 	print(dt)
 	dt = int(dt.timestamp())+ 24*60*60
-	API_KEY = 'AIzaSyBRxaYSL5HeGOg74xgDbJ6jjbIO0RX64c0'
 	# for i in checks:
 	# 	if(i=="slk"):
 	# 		res=

@@ -2,21 +2,101 @@
 <html>
 	<head>
 		<title>Your traffic manager</title>
-		<script src="static/jQuery.js"></script>
-		<style type="text/css" href="static/bootstrap.min.css"></style>
-		<script type="text/javascript" src="static/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/jQuery.js"></script>
+		<link href="{{ url_for('static', filename='bootstrap.min.js') }}" rel="javascript">
+		<link href="{{ url_for('static', filename='bootstrap.min.css') }}" rel="stylesheet">
 		<script type="text/javascript">
+			my_waypts=[];
+			document.
+
+		</script>
+		<style>
+		body
+		{
+			width:100%;
+			margin-left:10px;
+		}
+	      #right-panel {
+	        font-family: 'Roboto','sans-serif';
+	        line-height: 30px;
+	        /*padding-left: 10px;*/
+	      }
+
+	      #right-panel select, #right-panel input {
+	        font-size: 15px;
+	      }
+
+	      #right-panel select {
+	        width: 100%;
+	      }
+
+	      #right-panel i {
+	        font-size: 12px;
+	      }
+	      html, body {
+	        height: 100%;
+	        margin: 0;
+	        padding: 0;
+	      }
+	      #map {
+	        height: 100%;
+	        float: left;
+	        width: 50%;
+	        height: 100%;
+	      }
+	      #right-panel {
+	        margin: 0px;
+	        border-width: 2px;
+	        width: 20%;
+	        height: 10px;
+	        float: left;
+	        text-align: left;
+	        padding-top: 0;
+	      }
+	      #directions-panel {
+	        margin-top: 10px;
+	        background-color: #FFEE77;
+	        padding: 10px;
+	        overflow: scroll;
+	        height: 174px;
+	      }
+	    </style>
+		<script type="text/javascript">
+			 function initMap() {
+	        directionsService = new google.maps.DirectionsService;
+	        directionsDisplay = new google.maps.DirectionsRenderer;
+	        var map = new google.maps.Map(document.getElementById('map'), {
+	          zoom: 6,
+	          center: {lat: 12.97, lng: 77.59}
+	        });
+	        directionsDisplay.setMap(map);
+
+	        // document.getElementById('submit').addEventListener('click', function() {
+	        //   calculateAndDisplayRoute(directionsService, directionsDisplay);
+	        // });
+	      }
+
 			function update()
 			{
+				my_waypts=[]
 				checks=""
 				if(document.getElementById("slk").checked)
 				{
-					checks+="slk&"
+					checks+="slk&";
+					my_waypts.push({
+	              location: "Silk Board",
+	              stopover: true
+	            });
 				}
 				if(document.getElementById("blr").checked)
 				{
-					checks+="blr"
+					checks+="blr";
+					my_waypts.push({
+	              location: "Bellandur",
+	              stopover: true
+	            });
 				}
+				console.log(my_waypts)	
 				var data={'start':document.getElementById('start').value,'end':document.getElementById('end').value,'time':document.getElementById('time').value, "checks":checks}
 				
 
@@ -35,53 +115,107 @@
 			function update_success(data)
 			{
 				rem=document.getElementById("dep")
+				sub=document.getElementById("res_div")
 				if(rem)
 				{
-					document.body.removeChild(rem)
+					sub.removeChild(rem)
 				}
-
 				depart=document.createElement("div");
 				depart.setAttribute("id", "dep")
-				depart.innerHTML="You can leave at :"+data;
-				document.body.append(depart)	
+				// depart.setAttribute("class", "")
+				depart.innerHTML="You can leave at : "+data;
+				sub.append(depart)	
+				plotMap();
+			}
+
+			function plotMap()
+			{
+				calculateAndDisplayRoute(directionsService, directionsDisplay);
 			}
 		</script>
 	<head>
 	<body>
+ 
+	<script>
+	     
+
+	      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	        var waypts = my_waypts;
+	        var checkboxArray = document.getElementById('waypoints');
+	        directionsService.route({
+	          origin: document.getElementById('start').value,
+	          destination: document.getElementById('end').value,
+	          waypoints: my_waypts,
+	          optimizeWaypoints: true,
+	          travelMode: 'DRIVING'
+	        }, function(response, status) {
+	          if (status === 'OK') {
+	            directionsDisplay.setDirections(response);
+	            var route = response.routes[0];
+	            var summaryPanel = document.getElementById('directions-panel');
+	            // summaryPanel.innerHTML = '';
+	            // For each route, display summary information.
+	            for (var i = 0; i < route.legs.length; i++) {
+	              var routeSegment = i + 1;
+	            }
+	          } else {
+	            window.alert('Directions request failed due to ' + status);
+	          }
+	        });
+	      }
+	    </script>
+	    <script async defer
+	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy08Tx2bWpGYoCd3zp-5viCDafm90bfOg&callback=initMap">
+	    </script>
+<!--**************************************************** MAPS***************************************** -->
+	<!-- <div class="container" style="margin:10px"> -->
+
+	<!-- </div> -->
+    	<div id="map"></div>
+	    <div id="right-panel">
+	    <div class="container" style="margin: 10px;width:250%">
 	<form class="form-horizontal">
 		<div class="form-group">
-			<label class="control-label col-sm-2" >Start location</label>
+			<label class="control-label col-sm-2" >Origin</label>
 			<div class="col-sm-8">
-			<input type="text" name="" id="start" autofocus="true" placeholder="Start location"  class="form-control"  required><br>
+			<input type="text" name="" id="start" autofocus="true" placeholder="Start location" value="Jayanagar" class="form-control"  required><br>
 
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-2" >Destination</label>
 			<div class="col-sm-8">
-			<input type="text" name="" id="end" placeholder="Destination"  class="form-control"  required><br>
+			<input type="text" name="" id="end" placeholder="Destination address" value="Bellandur" class="form-control"  required><br>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-2" >When do you want to reach your desination :</label>
+			<label class="control-label col-sm-2" >Arrival time :</label>
 			<div class="col-sm-8">
-			<input type="text" name="" id="time" placeholder="Time"  class="form-control"  required><br>
+			<input type="text" name="" id="time" placeholder="Time"   value="20:00" class="form-control"  required><br>
 			</div>
 		</div>
-		<div class="form-group" id="checkSet">
-			<div class="checkbox">
-			  <label><input type="checkbox" value="slk" id="slk">Silk Board</label>
+		<div class="form-group">
+			<label class="control-label col-sm-2" >Silk Board :</label>
+			<div class="col-sm-8">
+			<input type="checkbox" value="slk" id="slk">
 			</div>
-			<div class="checkbox">
-			  <label><input type="checkbox" value="blr" id="blr">Bellandur</label>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2" >Bellandur :</label>
+			<div class="col-sm-8">
+			<input type="checkbox" value="blr" id="blr">
 			</div>
 		</div>
 		<div class="form-group"> 
-			<div class="col-sm-offset-2 col-sm-10">
+			<div class="col-sm-offset-2 col-sm-10" id="res_div">
 			<button type="button" onclick="update()" id='sub' class="btn btn-default">Get departure time</button>
 			</div>
-		</div>
+		</div> 
 	</form>
+	</div>
+	
+	</div> 
 </div>
-	</body>
+  	</body>
 </html>
