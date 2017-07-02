@@ -77,6 +77,11 @@ def logic(start,end,times,checks):
 	h = int(t%86400/3600)
 	m = int( t%3600 /60)
 	start_time = str(str(h)+":"+str(m));
+	print(wayp)
+	try:
+		del wayp['']
+	except:
+		pass	
 	for i in wayp:
 		#time at waypoint 
 		tw = t+wayp[i]
