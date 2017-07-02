@@ -26,6 +26,157 @@ def update():
 	
 	return res
 
+def checktime(h2, m2, h, m, count_data, i):
+	cap=5
+	if(m2>0 and m2<=5):
+		if(count_data[i][str(h2)+":00-"+str(h2)+":05"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":00-"+str(h2)+":05"]+=1
+	elif(m2>5 and m2<=10):
+		if(count_data[i][str(h2)+":05-"+str(h2)+":10"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":05-"+str(h2)+":10"]+=1
+	elif(m2>10 and m2<=15):
+		if(count_data[i][str(h2)+":10-"+str(h2)+":15"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":10-"+str(h2)+":15"]+=1
+	elif(m2>15 and m2<=20):
+		if(count_data[i][str(h2)+":15-"+str(h2)+":20"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":15-"+str(h2)+":20"]+=1
+	elif(m2>20 and m2<=25):
+		if(count_data[i][str(h2)+":20-"+str(h2)+":25"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":20-"+str(h2)+":25"]+=1
+	elif(m2>25 and m2<=30):
+		if(count_data[i][str(h2)+":25-"+str(h2)+":30"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":25-"+str(h2)+":30"]+=1
+	elif(m2>30 and m2<=35):
+		if(count_data[i][str(h2)+":30-"+str(h2)+":35"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":30-"+str(h2)+":35"]+=1
+	elif(m2>35 and m2<=40):
+		if(count_data[i][str(h2)+":35-"+str(h2)+":40"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":35-"+str(h2)+":40"]+=1
+	elif(m2>40 and m2<=45):
+		if(count_data[i][str(h2)+":40-"+str(h2)+":45"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":40-"+str(h2)+":45"]+=1
+	elif(m2>45 and m2<=50):
+		if(count_data[i][str(h2)+":45-"+str(h2)+":50"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":45-"+str(h2)+":50"]+=1
+	elif(m2>50 and m2<=55):
+		if(count_data[i][str(h2)+":50-"+str(h2)+":55"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":50-"+str(h2)+":55"]+=1
+	elif(m2>55 and m2<=60):
+		if(count_data[i][str(h2)+":55-"+str(h2+1)+":00"]>cap):
+			m=m-5
+			if(m<0):
+				h-=1
+				m=60+m
+			m2=m2-5
+			if(m2<0):
+				h2-=1
+				m2=60+m2
+			h,m = checktime(h2, m2, h, m, count_data, i)
+		else:
+			count_data[i][str(h2)+":55-"+str(h2+1)+":00"]+=1
+	return h,m
 
 def logic(start,end,times,checks):
 	origin = '+'.join(start.split())
@@ -61,10 +212,11 @@ def logic(start,end,times,checks):
 	waypoints= waypoint_str.split('|')
 	wayp={}
 	for i in js['routes'][0]['legs']:
+		total_dur+=i['duration']['value']
 		if(j<len(waypoints)):
 			wayp[waypoints[j]] = total_dur
 		j=j+1
-		total_dur+=i['duration']['value']
+		
 		print(total_dur)
 	
 	print(len(js['routes'][0]['legs']))
@@ -85,103 +237,9 @@ def logic(start,end,times,checks):
 	for i in wayp:
 		#time at waypoint 
 		tw = t+wayp[i]
-		cap=5
-		if(m>0 and m<=5):
-			if(count_data[i][str(h)+":00-"+str(h)+":05"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":00-"+str(h)+":05"]+=1
-		elif(m>5 and m<=10):
-			if(count_data[i][str(h)+":05-"+str(h)+":10"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":05-"+str(h)+":10"]+=1
-		elif(m>10 and m<=15):
-			if(count_data[i][str(h)+":10-"+str(h)+":15"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":10-"+str(h)+":15"]+=1
-		elif(m>15 and m<=20):
-			if(count_data[i][str(h)+":15-"+str(h)+":20"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":15-"+str(h)+":20"]+=1
-		elif(m>20 and m<=25):
-			if(count_data[i][str(h)+":20-"+str(h)+":25"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":20-"+str(h)+":25"]+=1
-		elif(m>25 and m<=30):
-			if(count_data[i][str(h)+":25-"+str(h)+":30"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":25-"+str(h)+":30"]+=1
-		elif(m>30 and m<=35):
-			if(count_data[i][str(h)+":30-"+str(h)+":35"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":30-"+str(h)+":35"]+=1
-		elif(m>35 and m<=40):
-			if(count_data[i][str(h)+":35-"+str(h)+":40"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":35-"+str(h)+":40"]+=1
-		elif(m>40 and m<=45):
-			if(count_data[i][str(h)+":40-"+str(h)+":45"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":40-"+str(h)+":45"]+=1
-		elif(m>45 and m<=50):
-			if(count_data[i][str(h)+":45-"+str(h)+":50"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":45-"+str(h)+":50"]+=1
-		elif(m>50 and m<=55):
-			if(count_data[i][str(h)+":50-"+str(h)+":55"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":50-"+str(h)+":55"]+=1
-		elif(m>55 and m<=60):
-			if(count_data[i][str(h)+":55-"+str(h+1)+":00"]>cap):
-				m=m-5
-				if(m<0):
-					h-=1
-					m=60+m
-			else:
-				count_data[i][str(h)+":55-"+str(h+1)+":00"]+=1
+		h2 = int(tw%86400/3600)
+		m2 = int(tw%3600 /60)
+		h,m = checktime(h2, m2, h, m, count_data, i)
 	f=open("file.txt", 'w')
 	start_time = str(str(h)+":"+str(m));
 	f.write(json.dumps(count_data))
